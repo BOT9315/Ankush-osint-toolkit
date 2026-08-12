@@ -3,8 +3,6 @@ fghjkl
 fghjkl;'
 fghjk
 d
-
-tt
 e
 
 w
