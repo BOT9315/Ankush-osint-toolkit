@@ -6,7 +6,5 @@ d
 e
 
 w
-w
-s
 s
 w
