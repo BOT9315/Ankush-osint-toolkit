@@ -4,6 +4,3 @@ fghjkl;'
 fghjk
 d
 e
-
-
-w
