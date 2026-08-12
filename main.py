@@ -7,8 +7,6 @@ e
 
 w
 w
-
-s
 s
 s
 w
