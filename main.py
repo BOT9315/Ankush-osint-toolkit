@@ -5,6 +5,5 @@ fghjk
 d
 e
 
-w
-s
+
 w
