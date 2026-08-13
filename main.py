@@ -1,7 +1,6 @@
 
 sdf
 g
-s
 e
 ee
 e
