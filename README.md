@@ -5,7 +5,7 @@ g
 f
 fg
 
-gf
+
 f
 fggf
 g
