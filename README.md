@@ -4,7 +4,7 @@ fg
 g
 f
 fg
-fg
+
 gf
 f
 fggf
