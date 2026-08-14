@@ -7,6 +7,6 @@ fg
 
 
 f
-fggf
+f
 g
 gffg
