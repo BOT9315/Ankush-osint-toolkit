@@ -108,7 +108,6 @@ def history_export(format: str = Query("json", pattern="^(json|csv)$")):
         headers={"Content-Disposition": "attachment; filename=investigations.csv"}
     )
 
-
 @app.get("/api/stats")
 def stats():
     return get_stats()
