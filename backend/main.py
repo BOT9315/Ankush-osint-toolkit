@@ -9,6 +9,7 @@ from pydantic import BaseModel
 from database import init_db, save_result, get_history, get_stats, delete_entry, clear_history
 from osint import check_username_async, validate_email, lookup_ip, domain_lookup, image_metadata
 
+
 app = FastAPI(title="Ankush OSINT Toolkit", version="2.1")
 
 app.add_middleware(
@@ -26,7 +27,6 @@ class TargetRequest(BaseModel):
 @app.get("/api/health")
 def health():
     return {"status": "online", "application": "Ankush OSINT Toolkit", "version": "2.1"}
-
 
 @app.post("/api/username")
 async def username_search(request: TargetRequest):
