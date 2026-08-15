@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ankush — OSINT Toolkit</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%23e8a33d%22/><text x=%2216%22 y=%2222%22 font-size=%2216%22 font-family=%22monospace%22 font-weight=%22700%22 text-anchor=%22middle%22 fill=%22%230b0d10%22>A</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">A</div>
+      <div class="brand-text">
+        <h1>Ankush</h1>
+        <span>OSINT Toolkit <em>v2.1</em></span>
+      </div>
+    </div>
+
+    <nav class="filenav">
+      <button class="nav-item active" data-page="dashboard"><span class="code">◆</span>Dashboard</button>
+      <button class="nav-item" data-page="username"><span class="code">USR</span>Username</button>
+      <button class="nav-item" data-page="email"><span class="code">EML</span>Email</button>
+      <button class="nav-item" data-page="ip"><span class="code">IP4</span>IP Intelligence</button>
+      <button class="nav-item" data-page="domain"><span class="code">DNS</span>Domain</button>
+      <button class="nav-item" data-page="image"><span class="code">IMG</span>Image OSINT</button>
+      <button class="nav-item" data-page="history"><span class="code">LOG</span>History</button>
+    </nav>
+
+    <div class="sidebar-foot">
+      <div class="api-status"><span class="dot" id="apiDot"></span><span id="apiLabel">Checking API…</span></div>
+      <p class="disclaimer">Public / authorized sources only. IP geolocation is approximate — not live GPS.</p>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+      <div>
+        <p class="eyebrow" id="pageEyebrow">FILE — DASHBOARD</p>
+        <h2 id="pageTitle">Case overview</h2>
+      </div>
+      <button id="themeButton" class="icon-button" title="Toggle theme" aria-label="Toggle theme">☾</button>
+    </header>
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="page active-page">
+      <div class="hero">
+        <span class="badge">OSINT WORKSPACE</span>
+        <h3>Investigate public information, faster.</h3>
+        <p>Cross-check usernames across platforms, vet email deliverability, trace public IP network data, inspect DNS posture, and read the metadata hiding inside an image — all logged to a local case history.</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card"><span>Total investigations</span><strong id="totalStat">0</strong></div>
+        <div class="stat-card"><span>Usernames</span><strong id="usernameStat">0</strong></div>
+        <div class="stat-card"><span>Emails</span><strong id="emailStat">0</strong></div>
+        <div class="stat-card"><span>IP lookups</span><strong id="ipStat">0</strong></div>
+        <div class="stat-card"><span>Domains</span><strong id="domainStat">0</strong></div>
+        <div class="stat-card"><span>Images</span><strong id="imageStat">0</strong></div>
+      </div>
+
+      <div class="split">
+        <div class="panel chart-panel">
+          <h4>Activity by tool</h4>
+          <div id="statsChart" class="chart"></div>
+        </div>
+        <div class="panel">
+          <h4>Open a tool</h4>
+          <div class="tools-grid">
+            <button class="tool-card" data-page="username"><span class="tool-code">USR</span><strong>Username</strong><small>Check profile availability</small></button>
+            <button class="tool-card" data-page="email"><span class="tool-code">EML</span><strong>Email</strong><small>Format, MX &amp; disposability</small></button>
+            <button class="tool-card" data-page="ip"><span class="tool-code">IP4</span><strong>IP Intel</strong><small>Geo &amp; network lookup</small></button>
+            <button class="tool-card" data-page="domain"><span class="tool-code">DNS</span><strong>Domain</strong><small>A / MX / NS / TXT / DMARC</small></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- USERNAME -->
+    <section id="username" class="page">
+      <div class="panel">
+        <h2>Username Intelligence</h2>
+        <p class="sub">Checks profile URLs across public platforms in parallel. A 200 response is a signal, not proof of identity.</p>
+        <div class="search-box">
+          <input id="usernameInput" placeholder="e.g. ankush_dev" spellcheck="false">
+          <button class="run-button" onclick="runUsername()">Investigate</button>
+        </div>
+      </div>
+      <div id="usernameSummary"></div>
+      <div id="usernameResults" class="results"></div>
+    </section>
+
+    <!-- EMAIL -->
+    <section id="email" class="page">
+      <div class="panel">
+        <h2>Email Intelligence</h2>
+        <p class="sub">Validates format, resolves MX records, and flags known disposable domains.</p>
+        <div class="search-box">
+          <input id="emailInput" type="email" placeholder="name@domain.com" spellcheck="false">
+          <button class="run-button" onclick="runEmail()">Investigate</button>
+        </div>
+      </div>
+      <div id="emailResults" class="results"></div>
+    </section>
+
+    <!-- IP -->
+    <section id="ip" class="page">
+      <div class="panel">
+        <h2>IP Intelligence</h2>
+        <p class="sub">Approximate public geolocation and network ownership for an IPv4 or IPv6 address.</p>
+        <div class="search-box">
+          <input id="ipInput" placeholder="8.8.8.8" spellcheck="false">
+          <button class="run-button" onclick="runIP()">Investigate</button>
+        </div>
+      </div>
+      <div id="ipResults" class="results"></div>
+    </section>
+
+    <!-- DOMAIN -->
+    <section id="domain" class="page">
+      <div class="panel">
+        <h2>Domain &amp; DNS Intelligence</h2>
+        <p class="sub">Public DNS records, plus SPF / DMARC posture checks.</p>
+        <div class="search-box">
+          <input id="domainInput" placeholder="example.com" spellcheck="false">
+          <button class="run-button" onclick="runDomain()">Investigate</button>
+        </div>
+      </div>
+      <div id="domainResults" class="results"></div>
+    </section>
+
+    <!-- IMAGE -->
+    <section id="image" class="page">
+      <div class="panel">
+        <h2>Image OSINT</h2>
+        <p class="sub">Extracts embedded EXIF metadata and generates a SHA-256 fingerprint. Nothing leaves your machine's API.</p>
+        <div class="upload-area" id="uploadArea">
+          <input type="file" id="imageInput" accept="image/*">
+          <label for="imageInput">
+            <span class="upload-icon">↑</span>
+            <strong id="uploadLabel">Select or drop an image</strong>
+            <small>JPG · PNG · WEBP</small>
+          </label>
+        </div>
+        <button class="run-button primary-button" onclick="runImage()">Analyze image</button>
+      </div>
+      <div id="imageResults" class="results"></div>
+    </section>
+
+    <!-- HISTORY -->
+    <section id="history" class="page">
+      <div class="panel">
+        <div class="history-head">
+          <div>
+            <h2>Investigation History</h2>
+            <p class="sub">Everything logged by this installation, newest first.</p>
+          </div>
+          <div class="history-actions">
+            <select id="historyFilter" onchange="loadHistory()">
+              <option value="all">All tools</option>
+              <option value="username">Username</option>
+              <option value="email">Email</option>
+              <option value="ip">IP</option>
+              <option value="domain">Domain</option>
+              <option value="image">Image</option>
+            </select>
+            <button class="ghost-button" onclick="exportHistory('csv')">Export CSV</button>
+            <button class="ghost-button" onclick="exportHistory('json')">Export JSON</button>
+            <button class="ghost-button danger" onclick="clearAllHistory()">Clear all</button>
+          </div>
+        </div>
+      </div>
+      <div id="historyResults" class="history-list"></div>
+    </section>
+
+  </main>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="/assets/js/app.js"></script>
+</body>
+</html>

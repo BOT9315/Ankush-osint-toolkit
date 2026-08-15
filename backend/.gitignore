@@ -1,0 +1,8 @@
+﻿venv/
+__pycache__/
+*.pyc
+backend/osint.db
+uploads/*
+!uploads/.gitkeep
+reports/*
+!reports/.gitkeep
