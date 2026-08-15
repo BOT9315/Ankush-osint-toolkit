@@ -23,7 +23,6 @@ init_db()
 class TargetRequest(BaseModel):
     target: str
 
-
 @app.get("/api/health")
 def health():
     return {"status": "online", "application": "Ankush OSINT Toolkit", "version": "2.1"}
