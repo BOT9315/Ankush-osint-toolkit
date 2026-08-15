@@ -2,7 +2,6 @@
    Display: Space Grotesk / Data: IBM Plex Mono / Body: Inter */
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
 :root{
   --bg: #0b0d10;
   --bg-soft: #101318;
