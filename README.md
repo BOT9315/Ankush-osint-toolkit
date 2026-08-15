@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Ankush OSINT Toolkit 2.1
 
 A FastAPI + HTML/CSS/JavaScript OSINT dashboard for looking up **public, open-source
@@ -55,3 +56,6 @@ Open http://127.0.0.1:8000
 Use only with public or authorized information. Username "found" results are a
 signal from an HTTP status code, not a confirmed identity match. IP geolocation
 is approximate and is not live GPS.
+=======
+
+>>>>>>> 797f14221e55c94303a403f3fea31142dde606ad
