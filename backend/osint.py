@@ -105,7 +105,6 @@ def validate_email(email):
         "plus_addressed": "+" in local,
     }
 
-
 def lookup_ip(ip):
     ip = ip.strip()
     try:
