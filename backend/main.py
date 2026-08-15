@@ -36,7 +36,6 @@ async def username_search(request: TargetRequest):
     save_result("username", request.target, result)
     return result
 
-
 @app.post("/api/email")
 def email_search(request: TargetRequest):
     if not request.target.strip(): raise HTTPException(400, "Email is required")
